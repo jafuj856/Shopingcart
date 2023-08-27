@@ -1,0 +1,68 @@
+ 
+
+                
+                    
+ <section>
+   <div class="row">
+        <div class="container">
+            <div class="col-md-12 text-center mt-4">
+               
+                <h1 class="text-center text-warning">Oderd Products </h1>
+        
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+      
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mobail</th>
+                    <th scope="col">Adrress</th>
+                   
+                    
+                </tr>
+            </thead>
+           
+            <tbody>
+                
+
+                
+                {{#each userdetails}}
+               
+                <tr>
+                    {{#time @index}}
+                    <th scope="row" id="row">
+                     {{this}}
+                       
+                    </th>
+                   {{/time}}
+                    {{quantitty1}}
+                    <td>{{this.user.name}}</td>
+                    <td>{{this.user.email}}</td>
+                    <td>{{this.deliverydetails.mobaile}}</td>
+                    
+                
+                
+                    <td>{{this.deliverydetails.address}}<br>
+                        pincode: {{this.deliverydetails.pincod}}
+                    </td>
+            
+                </tr>
+             {{/each}}
+
+
+
+              
+             
+                </tbody>
+            </table>
+           
+        </div>
+    </section>

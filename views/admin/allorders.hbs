@@ -1,0 +1,68 @@
+ 
+
+<section>
+  <div class="row">
+        <div class="container">
+            <div class="col-md-12 text-center mt-4">
+               
+                <h1 class="text-center text-warning"> Order Details</h1>
+        
+            </div>
+        </div>
+    </div>
+      
+        
+        <table class="table mt-3" id="productstable">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Date</th>
+                    
+                    <th scope="col">Amount</th>
+                    <th scope="col">Payment Method</th>
+                    <th scope="col">Satuse</th>
+                    <th scope="col">Options</th>                    
+                </tr>
+            </thead>
+           
+            <tbody>
+                
+
+                
+                {{#each orders}}
+               
+               
+                <tr>
+                   {{#time @index}}
+                    
+                    <th scope="row" id="row">
+                        
+                       {{this}}
+                       
+                    </th>
+                 {{/time}}
+                    <td>{{this.date}}</td>
+                    <td>{{this.totalPrice}}</td>
+                    <td>{{this.paymentmethod}}</td>
+                    <td>{{this.status}}</td>
+                   
+                   <td>
+                    <a href="/admin/view-order-products/{{this._id}}" class="btn btn-primary">View Prodect</a>
+                    <a href="/admin/view-order-user/{{this._id}}" class="btn btn-warning">User detailse</a>
+                   </td>
+                </tr>
+             {{/each}}
+             
+                </tbody>
+            </table>
+            
+        </div>
+    </section>
+
+
+<script>
+    $(function(){
+    
+        $('#productstable').DataTable();
+    })
+</script>

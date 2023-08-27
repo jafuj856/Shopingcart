@@ -1,0 +1,63 @@
+var db = require('../config/connection')
+var collection = require('../config/collections')
+var objectId = require('mongodb').ObjectId
+const { ObjectId } = require('mongodb')
+module.exports={
+ 
+    addProduct:(product,callback)=>{
+        
+    
+        db.get().collection('product').insertOne(product).then((data)=>{
+            
+             callback(data.insertedId)
+        })   
+    },
+
+    getAllProducts:()=>{
+        return new Promise(async( resolve,reject)=>{
+            let prodects =await db.get().collection(collection.PRODUCT_CLLECTION).find().toArray()
+            resolve(prodects) 
+        })
+
+        
+        },
+               
+        deleteProducts:(proId)=>{
+            return new Promise(( resolve,reject)=>{
+                let prodects = db.get().collection(collection.PRODUCT_CLLECTION).deleteOne({_id:ObjectId(proId)}).then((respons)=>{
+                    resolve(respons)
+                }) 
+                 
+                resolve()
+            }) 
+    
+            
+            },
+            
+            getProductDtails:(proid)=>{
+                return new Promise((resolve,regect)=>{
+                    db.get().collection(collection.PRODUCT_CLLECTION).findOne({_id:ObjectId(proid)}).then((product)=>{
+                        resolve(product)
+                    })
+                })
+            },
+
+            updatProduct:(proid,productDetails)=>{
+                return new Promise((resolve,reject)=>{
+                    db.get().collection(collection.PRODUCT_CLLECTION)
+                    .updateOne({_id:ObjectId(proid)},
+                    {
+                        $set:{
+                        name: productDetails.name,
+                        category:productDetails.category,
+                        price:productDetails.price,
+                        description:productDetails.description,
+                        }
+                    }).then((respons)=>{
+                        resolve()
+                    })
+                }) 
+            }
+    
+      
+}

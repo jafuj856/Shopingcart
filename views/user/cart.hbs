@@ -1,0 +1,107 @@
+
+
+
+<div class="container">
+    {{#if products}}
+<h2 style="text-align: center; color: rgb(0, 255, 34);margin-top: 2%;text-decoration: underline;">Welcome to Cart</h2>
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">TotalPrice</th>
+            </tr>
+        </thead>
+
+       {{else}}
+<h2 style="text-align: center; color: rgb(255, 123, 0);margin-top: 10%;">Cart is empty!</h2>
+{{/if}}
+
+        <tbody>
+            {{#each products}}
+            <tr>
+            
+                         <td><img src="/product-images/{{this.prodect._id}}.jpg" style="width: 70px;height: 70px;" alt=""></td>
+        
+        
+               
+              <td>{{this.prodect.name}}</td>
+               <td>{{this.prodect.price}}</td>
+            <td>
+              {{#if this.quantitty includeZero=false}}
+               <button class="bg-warning mr-2"  onclick="changequantity('{{this._id}}','{{this.prodect._id}}',-1,'{{this.quantitty}}')">-</button>
+                {{this.quantitty}}
+                 <button class="bg-success ml-2" onclick="changequantity('{{this._id}}','{{this.prodect._id}}',1,'{{this.quantitty}}')">+</button>
+           {{else}}
+            <h3 class="text-warning">This item is removed </h3>
+                
+           {{/if}}
+            </td>
+            <td id="{{this.prodect._id}}">
+
+            </td>
+            <td>
+                <a class="btn btn-danger" onclick="remove1('{{this._id}}','{{this.prodect._id}}')">Remove</a>
+            </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+      
+      <hr>
+      <a href="/place-order" class="float-right mr-5 mt-2 btn btn-success">Place Order</a>
+      
+      <h3 class="float-right mr-5 mt-2">Total : Rs. <span id="total">{{ this.total}}</span></h3>
+ 
+</div> 
+
+
+
+<script>
+     
+    function changequantity(cartid,proid,count){
+
+       
+      $.ajax({
+            url:'/change-product-quantity',
+            data:{
+                cart:cartid,
+                product:proid,
+                count:count
+            },
+            method:'post',
+            success:(responts)=>{
+                
+                location.reload()
+            
+                 
+                
+            }
+            
+      })          
+              
+
+      }
+
+ function remove1(cartid,proid){
+ 
+    $.ajax({
+        
+        url:'/remove-item-cart',
+        data:{
+            cart:cartid,
+            proid:proid
+        },
+        method:'post',
+    
+        success:()=>{
+              location.reload()
+        }
+    })
+    
+ }
+
+
+</script>
